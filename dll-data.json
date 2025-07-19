@@ -1,0 +1,22 @@
+[
+  { "name": "msvcp140.dll", "description": "Microsoft Visual C++ Redistributable", "download": "https://dlldepot.com/msvcp140.dll", "category": "Microsoft" },
+  { "name": "vcruntime140.dll", "description": "Visual Studio Runtime Library", "download": "https://dlldepot.com/vcruntime140.dll", "category": "Microsoft" },
+  { "name": "mfplat.dll", "description": "Microsoft Media Foundation Platform", "download": "https://dlldepot.com/mfplat.dll", "category": "Media" },
+  { "name": "d3dx9_43.dll", "description": "DirectX 9 Graphics API", "download": "https://dlldepot.com/d3dx9_43.dll", "category": "DirectX" },
+  { "name": "xinput1_3.dll", "description": "Xbox Input Library", "download": "https://dlldepot.com/xinput1_3.dll", "category": "DirectX" },
+  { "name": "kernel32.dll", "description": "Windows Kernel API", "download": "https://dlldepot.com/kernel32.dll", "category": "System" },
+  { "name": "user32.dll", "description": "Windows User Interface", "download": "https://dlldepot.com/user32.dll", "category": "System" },
+  { "name": "gdi32.dll", "description": "Graphics Device Interface", "download": "https://dlldepot.com/gdi32.dll", "category": "System" },
+  { "name": "advapi32.dll", "description": "Advanced Windows API", "download": "https://dlldepot.com/advapi32.dll", "category": "System" },
+  { "name": "ws2_32.dll", "description": "Winsock API for networking", "download": "https://dlldepot.com/ws2_32.dll", "category": "Network" },
+  { "name": "ole32.dll", "description": "Object Linking and Embedding", "download": "https://dlldepot.com/ole32.dll", "category": "System" },
+  { "name": "ucrtbase.dll", "description": "Universal C Runtime", "download": "https://dlldepot.com/ucrtbase.dll", "category": "Microsoft" },
+  { "name": "shell32.dll", "description": "Windows Shell API", "download": "https://dlldepot.com/shell32.dll", "category": "System" },
+  { "name": "ntdll.dll", "description": "Windows NT Layer DLL", "download": "https://dlldepot.com/ntdll.dll", "category": "System" },
+  { "name": "msvcr100.dll", "description": "Microsoft Visual C++ Runtime", "download": "https://dlldepot.com/msvcr100.dll", "category": "Microsoft" },
+  { "name": "msvcp120.dll", "description": "Microsoft Visual C++ 2013", "download": "https://dlldepot.com/msvcp120.dll", "category": "Microsoft" },
+  { "name": "api-ms-win-crt-runtime-l1-1-0.dll", "description": "Universal CRT API", "download": "https://dlldepot.com/api-ms-win-crt-runtime-l1-1-0.dll", "category": "Microsoft" },
+  { "name": "d3dcompiler_43.dll", "description": "Direct3D HLSL Compiler", "download": "https://dlldepot.com/d3dcompiler_43.dll", "category": "DirectX" },
+  { "name": "dxgi.dll", "description": "DirectX Graphics Infrastructure", "download": "https://dlldepot.com/dxgi.dll", "category": "DirectX" },
+  { "name": "opengl32.dll", "description": "OpenGL Graphics Library", "download": "https://dlldepot.com/opengl32.dll", "category": "Graphics" }
+]

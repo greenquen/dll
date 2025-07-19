@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DLL REPARATOR - Hacker Mode 🖤</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ff00;
+      user-select: none;
+    }
+
+    body {
+      background: #000000;
+      overflow-x: hidden;
+      cursor: url('https://cdn.iconscout.com/icon/free/png-256/console-165-675120.png'), auto;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* Glitch effect */
+    .glitch {
+      position: relative;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00ff00;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      animation: glitch-anim 2s infinite;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      opacity: 0.8;
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 red;
+      animation: glitch-anim-before 2s infinite;
+    }
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 blue;
+      animation: glitch-anim-after 2s infinite;
+    }
+
+    @keyframes glitch-anim {
+      0%, 100% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+      50% { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ff00; }
+    }
+    @keyframes glitch-anim-before {
+      0% { clip: rect(0, 900px, 0, 0); }
+      10% { clip: rect(5px, 900px, 40px, 0); }
+      20% { clip: rect(10px, 900px, 80px, 0); }
+      30% { clip: rect(0, 900px, 50px, 0); }
+      40% { clip: rect(20px, 900px, 60px, 0); }
+      50% { clip: rect(0, 900px, 0, 0); }
+      60% { clip: rect(5px, 900px, 40px, 0); }
+      70% { clip: rect(10px, 900px, 80px, 0); }
+      80% { clip: rect(0, 900px, 50px, 0); }
+      90% { clip: rect(20px, 900px, 60px, 0); }
+      100% { clip: rect(0, 900px, 0, 0); }
+    }
+    @keyframes glitch-anim-after {
+      0% { clip: rect(0, 900px, 0, 0); }
+      10% { clip: rect(25px, 900px, 60px, 0); }
+      20% { clip: rect(40px, 900px, 90px, 0); }
+      30% { clip: rect(30px, 900px, 70px, 0); }
+      40% { clip: rect(50px, 900px, 80px, 0); }
+      50% { clip: rect(0, 900px, 0, 0); }
+      60% { clip: rect(25px, 900px, 60px, 0); }
+      70% { clip: rect(40px, 900px, 90px, 0); }
+      80% { clip: rect(30px, 900px, 70px, 0); }
+      90% { clip: rect(50px, 900px, 80px, 0); }
+      100% { clip: rect(0, 900px, 0, 0); }
+    }
+
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Search */
+    #search-container {
+      margin: 3rem 0;
+      display: flex;
+      gap: 0.5rem;
+    }
+    #search {
+      flex-grow: 1;
+      background: #001100;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      font-size: 1.2rem;
+      padding: 0.75rem 1rem;
+      border-radius: 5px 0 0 5px;
+      transition: border-color 0.3s ease;
+    }
+    #search:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 8px #00ffff;
+      background: #002200;
+    }
+    #search-btn {
+      background: #00ff00;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: black;
+      transition: filter 0.3s ease;
+    }
+    #search-btn:hover {
+      filter: brightness(1.3);
+    }
+
+    /* Filters */
+    #filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #00ff00;
+      padding: 0.5rem 1.5rem;
+      font-weight: 700;
+      border-radius: 5px;
+      color: #00ff00;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #00ff00;
+      color: #000;
+      box-shadow: 0 0 10px #00ff00;
+      text-shadow: 0 0 5px #00ff00;
+    }
+
+    /* DLL List */
+    #dllList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    .dll-card {
+      background: #002200;
+      border: 1px solid #00ff00;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 0 10px #00ff00;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .dll-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px #00ff00;
+    }
+    .dll-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-shadow: 0 0 8px #00ff00;
+      margin-bottom: 0.5rem;
+    }
+    .dll-desc {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #a0ffa0;
+    }
+    .dll-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: #004400;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      color: #00ff00;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      box-shadow: 0 0 5px #00ff00;
+    }
+    .dll-download {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #00ff00;
+      color: black;
+      font-weight: 700;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 0 10px #00ff00;
+      transition: filter 0.3s ease;
+    }
+    .dll-download:hover {
+      filter: brightness(1.4);
+    }
+
+    /* No results */
+    #noResults {
+      color: #ff0000;
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-align: center;
+      margin-top: 2rem;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="glitch" data-text="Téléchargez vos DLL">Téléchargez vos DLL</h1>
+
+    <div id="search-container">
+      <input id="search" type="search" placeholder="Tapez le nom du fichier DLL..." aria-label="Rechercher un fichier DLL" autocomplete="off" />
+      <button id="search-btn" aria-label="Lancer la recherche">→</button>
+    </div>
+
+    <div id="filters" role="group" aria-label="Filtrer par catégorie">
+      <button class="filter-btn active" data-cat="all">Tous</button>
+      <button class="filter-btn" data-cat="Microsoft">Microsoft</button>
+      <button class="filter-btn" data-cat="DirectX">DirectX</button>
+      <button class="filter-btn" data-cat="System">System</button>
+      <button class="filter-btn" data-cat="Media">Media</button>
+      <button class="filter-btn" data-cat="Network">Network</button>
+      <button class="filter-btn" data-cat="Graphics">Graphics</button>
+    </div>
+    <section id="download-links" style="margin-top:2rem; font-family: monospace; color:#00ff00;">
+      <h2>Liste de DLL populaires - Téléchargements officiels</h2>
+
+      <article style="margin-bottom:1.5rem;" role="listitem">
+        <h3>msvcp140.dll (Microsoft Visual C++ Redistributable)</h3>
+        <ul>
+          <li><a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Téléchargement officiel Microsoft (x64)</a></li>
+          <li><a href="https://aka.ms/vs/17/release/vc_redist.x86.exe" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Téléchargement officiel Microsoft (x86)</a></li>
+          <li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=48145" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Page officielle Microsoft - VC++ 2015-2019</a></li>
+        </ul>
+      </article>
+
+      <article style="margin-bottom:1.5rem;" role="listitem">
+        <h3>d3dx9_43.dll (DirectX End-User Runtime)</h3>
+        <ul>
+          <li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=35" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Téléchargement officiel DirectX Web Installer</a></li>
+          <li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=8109" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Package DirectX End-User Runtimes (June 2010)</a></li>
+        </ul>
+      </article>
+
+      <article style="margin-bottom:1.5rem;" role="listitem">
+        <h3>mfplat.dll (Media Foundation Platform)</h3>
+        <ul>
+          <li><a href="https://support.microsoft.com/en-us/windows/media-feature-pack-for-windows-10-n-editions-5c6f703e-cce4-5ff3-f7e1-789a2b9d8a7e" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Pack Media Feature pour Windows N (Microsoft)</a></li>
+        </ul>
+      </article>
+
+      <article style="margin-bottom:1.5rem;" role="listitem">
+        <h3>resampledmo.dll (Windows Media)</h3>
+        <ul>
+          <li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=12813" target="_blank" rel="noopener noreferrer" style="color:#0ff;">Windows Media Format Runtime</a></li>
+        </ul>
+      </article>
+
+      <p style="font-size:0.9rem; color:#008800;">
+        ⚠️ Attention : Toujours télécharger les DLL depuis des sources officielles pour éviter virus et malwares.
+      </p>
+    </section>
+
+    <div id="dllList" role="list" aria-live="polite" aria-label="Liste des fichiers DLL">
+      <!-- DLL cards generated here -->
+    </div>
+
+    <p id="noResults" hidden>Aucun fichier DLL ne correspond à votre recherche.</p>
+  </div>
+
+  <script>
+    (() => {
+      const searchInput = document.getElementById('search');
+      const searchBtn = document.getElementById('search-btn');
+      const filters = document.querySelectorAll('.filter-btn');
+      const dllList = document.getElementById('dllList');
+      const noResults = document.getElementById('noResults');
+
+      let dllData = [];
+      let currentCategory = 'all';
+      let currentSearch = '';
+
+      async function loadDLLData() {
+        try {
+          const res = await fetch('dll-data.json');
+          if (!res.ok) throw new Error('Fichier DLL introuvable');
+          dllData = await res.json();
+          displayDLLs(dllData);
+        } catch (err) {
+          console.error('Erreur chargement DLL:', err);
+          dllList.innerHTML = '<p style="color:red; font-weight:bold;">Erreur de chargement des fichiers DLL.</p>';
+          noResults.hidden = true;
+        }
+      }
+
+      function displayDLLs(data) {
+        dllList.innerHTML = '';
+        if (!Array.isArray(data) || data.length === 0) {
+          noResults.hidden = false;
+          return;
+        }
+        noResults.hidden = true;
+
+        data.forEach((dll, idx) => {
+          const card = document.createElement('div');
+          card.className = 'dll-card';
+          card.tabIndex = 0;
+          card.setAttribute('role', 'listitem');
+          card.innerHTML = `
+            <span class="dll-category">${dll.category ? dll.category : 'Autre'}</span>
+            <h2 class="dll-name">${dll.name}</h2>
+            <p class="dll-desc">${dll.description}</p>
+            <a href="${dll.download}" target="_blank" rel="noopener noreferrer" class="dll-download" aria-label="Télécharger ${dll.name}">Télécharger</a>
+          `;
+          dllList.appendChild(card);
+          // Focus sur le premier résultat après recherche
+          if (idx === 0 && currentSearch.trim() !== '') {
+            setTimeout(() => card.focus(), 100);
+          }
+        });
+      }
+
+      function filterAndSearch() {
+        let filtered = dllData;
+        if (currentCategory !== 'all') {
+          filtered = filtered.filter(dll =>
+            dll.category && dll.category.toLowerCase() === currentCategory.toLowerCase()
+          );
+        }
+        if (currentSearch.trim() !== '') {
+          const q = currentSearch.toLowerCase();
+          filtered = filtered.filter(dll =>
+            dll.name.toLowerCase().includes(q) ||
+            dll.description.toLowerCase().includes(q)
+          );
+        }
+        displayDLLs(filtered);
+      }
+
+      filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filters.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCategory = btn.getAttribute('data-cat');
+          filterAndSearch();
+        });
+      });
+
+      searchInput.addEventListener('input', () => {
+        currentSearch = searchInput.value;
+        filterAndSearch();
+      });
+
+      searchBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        currentSearch = searchInput.value;
+        filterAndSearch();
+      });
+
+      loadDLLData();
+    })();
+  </script>
+</body>
+</html>
